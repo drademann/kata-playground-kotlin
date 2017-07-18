@@ -1,0 +1,15 @@
+# kata-playground-kotlin
+This is a project setup to quickly get started with various Coding Katas using Kotlin.
+
+Currently the following Katas are included:
+
+* Prime Factors (thanks to _Uncle Bob_ [Robert C. Martin's Prime Factor Kata] (http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata))
+
+A description with requirements for each Kata is included in each test class (see its JavaDoc).
+
+Remember the TDD and Kata rules:
+- Do one task at a time. 
+- Do it incrementally. 
+- Solve requirements as simple as possible.
+- Refactor after each successful test.
+- This is about learning TDD/BDD *"red, green, repeat"*
