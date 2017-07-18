@@ -3,6 +3,11 @@ package net.beyondworlds
 import org.junit.Test
 import kotlin.test.assertEquals
 
+/**
+ * # Requirements
+ *
+ * * For an integer value n the generator should return all prime factors as an ordered list.
+ */
 class PrimeFactorsTest {
 
     @Test
