@@ -1,4 +1,4 @@
-package net.beyondworlds
+package kata.primefactors
 
 import org.junit.Test
 import kotlin.test.assertEquals

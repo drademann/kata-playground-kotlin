@@ -1,4 +1,4 @@
-package net.beyondworlds
+package kata.primefactors
 
 fun primeFactorsOf(n: Int): List<Int> {
     var r = n
