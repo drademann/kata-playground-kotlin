@@ -2,6 +2,7 @@ package kata.stringcalculator
 
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.fail
 
 /**
  * # Requirements
@@ -49,6 +50,41 @@ class StringCalculatorTest {
     @Test
     fun givenEmptyString_shouldReturnZero() {
         assertEquals(0, sumOf(""))
+    }
+
+    @Test
+    fun givenSingleNumber_shouldReturnNumberAsInt() {
+        assertEquals(1, sumOf("1"))
+    }
+
+    @Test
+    fun givenTwoCommaSeparatedNumbers_shouldReturnTheirSum() {
+        assertEquals(3, sumOf("1,2"))
+    }
+
+    @Test
+    fun givenManyCommaSeparatedNumbers_shouldReturnTheirSum() {
+        assertEquals(10, sumOf("1\n5,3,1"))
+    }
+
+    @Test
+    fun givenCustomDelimiter_shouldUseItToSeparateNumbers() {
+        assertEquals(6, sumOf("//;\n1;2;3"))
+    }
+
+    @Test
+    fun givenNegativeNumber_shouldRaiseException() {
+        try {
+            sumOf("1,-2,3")
+            fail("should raise exception instead of getting here")
+        } catch(exception: IllegalArgumentException) {
+            // success
+        }
+    }
+
+    @Test
+    fun givenNumbersGreater1000_shouldIgnoreThose() {
+        assertEquals(6, sumOf("1,1002,2,2003,3"))
     }
 
 }
