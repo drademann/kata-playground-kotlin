@@ -1,7 +1,7 @@
 package kata.primefactors
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import kotlin.test.assertEquals
 
 /**
  * # Requirements
@@ -12,42 +12,42 @@ class PrimeFactorsTest {
 
     @Test
     fun one() {
-        assertEquals(expected = emptyList(), actual = primeFactorsOf(1))
+        assertThat(primeFactorsOf(1)).isEmpty()
     }
 
     @Test
     fun two() {
-        assertEquals(listOf(2), primeFactorsOf(2))
+        assertThat(primeFactorsOf(2)).containsExactly(2)
     }
 
     @Test
     fun three() {
-        assertEquals(listOf(3), primeFactorsOf(3))
+        assertThat(primeFactorsOf(3)).containsExactly(3)
     }
 
     @Test
     fun four() {
-        assertEquals(listOf(2, 2), primeFactorsOf(4))
+        assertThat(primeFactorsOf(4)).containsExactly(2, 2)
     }
 
     @Test
     fun five() {
-        assertEquals(listOf(5), primeFactorsOf(5))
+        assertThat(primeFactorsOf(5)).containsExactly(5)
     }
 
     @Test
     fun six() {
-        assertEquals(listOf(2, 3), primeFactorsOf(6))
+        assertThat(primeFactorsOf(6)).containsExactly(2, 3)
     }
 
     @Test
     fun eight() {
-        assertEquals(listOf(2, 2, 2), primeFactorsOf(8))
+        assertThat(primeFactorsOf(8)).containsExactly(2, 2, 2)
     }
 
     @Test
     fun nine() {
-        assertEquals(listOf(3, 3), primeFactorsOf(9))
+        assertThat(primeFactorsOf(9)).containsExactly(3, 3)
     }
 
 }

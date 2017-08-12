@@ -1,8 +1,8 @@
 package kata.stringcalculator
 
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.fail
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.fail
 
 /**
  * # Requirements
@@ -49,27 +49,27 @@ class StringCalculatorTest {
 
     @Test
     fun givenEmptyString_shouldReturnZero() {
-        assertEquals(0, sumOf(""))
+        assertThat(sumOf("")).isEqualTo(0)
     }
 
     @Test
     fun givenSingleNumber_shouldReturnNumberAsInt() {
-        assertEquals(1, sumOf("1"))
+        assertThat(sumOf("1")).isEqualTo(1)
     }
 
     @Test
     fun givenTwoCommaSeparatedNumbers_shouldReturnTheirSum() {
-        assertEquals(3, sumOf("1,2"))
+        assertThat(sumOf("1,2")).isEqualTo(3)
     }
 
     @Test
     fun givenManyCommaSeparatedNumbers_shouldReturnTheirSum() {
-        assertEquals(10, sumOf("1\n5,3,1"))
+        assertThat(sumOf("1\n5,3,1")).isEqualTo(10)
     }
 
     @Test
     fun givenCustomDelimiter_shouldUseItToSeparateNumbers() {
-        assertEquals(6, sumOf("//;\n1;2;3"))
+        assertThat(sumOf("//;\n1;2;3")).isEqualTo(6)
     }
 
     @Test
@@ -84,7 +84,7 @@ class StringCalculatorTest {
 
     @Test
     fun givenNumbersGreater1000_shouldIgnoreThose() {
-        assertEquals(6, sumOf("1,1002,2,2003,3"))
+        assertThat(sumOf("1,1002,2,2003,3")).isEqualTo(6)
     }
 
 }
