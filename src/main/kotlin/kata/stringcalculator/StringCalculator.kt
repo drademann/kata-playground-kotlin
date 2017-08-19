@@ -1,27 +1,29 @@
 package kata.stringcalculator
 
-fun sumOf(string: String): Int {
-    if (string.isEmpty()) return 0
-    return StringCalculator(Regex("[,\n]")).sumOf(string)
-}
+fun String.sum(): Int = if (isEmpty()) 0 else StringCalculator(this).sum()
 
-class StringCalculator(val delimiters: Regex) {
+class StringCalculator(private val input: String, private val delimiters: String = ",\n") {
 
-    fun sumOf(string: String): Int {
-        if (string.startsWith("//")) {
-            return customSplitted(string[2], string.substring(4))
-        }
-        return splitted(string)
+    fun sum(): Int =
+            if (hasCustomDelimiter())
+                StringCalculator(remainingInput(), delimitersAppendedWith(customDelimiter())).sum()
+            else
+                input.split(delimitersRegex())
+                        .map { it.toInt() }
+                        .filter { it <= 1000 }
+                        .map { if (it < 0) throw IllegalArgumentException() else it }
+                        .sum()
+
+    private fun hasCustomDelimiter() = input.startsWith("//")
+
+    private fun delimitersAppendedWith(customDelimiter: Char): String {
+        return ",\n$customDelimiter"
     }
 
-    private fun customSplitted(additionalDelimiter: Char, tail: String): Int {
-        return StringCalculator(Regex("[,\n%s]".format(additionalDelimiter))).sumOf(tail)
-    }
+    private fun remainingInput() = input.substring(4)
 
-    private fun splitted(string: String): Int {
-        val integers = string.split(delimiters).map { it.toInt() }.filter { it <= 1000 }
-        if (integers.any { it < 0 }) throw IllegalArgumentException("numbers must be positive")
-        return integers.sum()
-    }
+    private fun customDelimiter() = input[2]
+
+    private fun delimitersRegex() = Regex("[$delimiters]")
 
 }
