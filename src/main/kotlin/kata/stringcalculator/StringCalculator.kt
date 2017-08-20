@@ -11,7 +11,7 @@ class StringCalculator(private val input: String, private val delimiters: CharAr
                 input.split(*delimiters)
                         .map { it.toInt() }
                         .filter { it <= 1000 }
-                        .map { if (it < 0) throw IllegalArgumentException() else it }
+                        .check { it >= 0 }
                         .sum()
 
     private fun hasCustomDelimiter() = input.startsWith("//")
@@ -20,4 +20,9 @@ class StringCalculator(private val input: String, private val delimiters: CharAr
 
     private fun remainingInput() = input.substring(4)
 
+}
+
+fun <T> Iterable<T>.check(forException: () -> Exception = ::IllegalArgumentException, check: (T) -> Boolean): Iterable<T> {
+    for (element in iterator()) if (!check(element)) throw forException.invoke()
+    return this
 }
