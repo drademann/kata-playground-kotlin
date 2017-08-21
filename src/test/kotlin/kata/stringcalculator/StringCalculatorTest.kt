@@ -84,7 +84,7 @@ class StringCalculatorTest {
 
     @Test
     fun givenNumbersGreater1000_shouldIgnoreThose() {
-        assertThat("1,1002,2,2003,3".sum()).isEqualTo(6)
+        assertThat("1,1000,2,1001,3".sum()).isEqualTo(1006)
     }
 
 }

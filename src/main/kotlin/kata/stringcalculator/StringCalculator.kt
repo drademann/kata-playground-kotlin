@@ -6,7 +6,7 @@ class StringCalculator(private val input: String, private val delimiters: CharAr
 
     fun sum(): Int =
             if (hasCustomDelimiter())
-                StringCalculator(remainingInput(), charArrayOf(customDelimiter(), *delimiters)).sum()
+                StringCalculator(remainingInput(), delimiters.plus(customDelimiter())).sum()
             else
                 input.split(*delimiters)
                         .map { it.toInt() }
