@@ -2,7 +2,7 @@ package kata.stringcalculator
 
 fun String.sum(): Int = if (isEmpty()) 0 else StringCalculator(this).sum()
 
-class StringCalculator(private val input: String, private val delimiters: CharArray = charArrayOf(',', '\n')) {
+private class StringCalculator(private val input: String, private val delimiters: CharArray = charArrayOf(',', '\n')) {
 
     fun sum(): Int =
             if (hasCustomDelimiter())
