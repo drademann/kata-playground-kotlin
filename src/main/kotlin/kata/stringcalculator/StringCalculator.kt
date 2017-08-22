@@ -1,28 +1,33 @@
 package kata.stringcalculator
 
-fun String.sum(): Int = if (isEmpty()) 0 else StringCalculator(this).sum()
+fun String.sum(): Int =
+        if (isEmpty())
+            0
+        else
+            StringCalculator(this).sum()
 
-private class StringCalculator(private val input: String, private val delimiters: CharArray = charArrayOf(',', '\n')) {
+private class StringCalculator(val input: String, val delimiters: CharArray = charArrayOf(',', '\n')) {
 
     fun sum(): Int =
-            if (hasCustomDelimiter())
-                StringCalculator(remainingInput(), delimiters.plus(customDelimiter())).sum()
+            if (input.startsWith("//"))
+                StringCalculator(inputWithoutCustomDelimiter, delimiters.plus(customDelimiter)).sum()
             else
                 input.split(*delimiters)
                         .map { it.toInt() }
-                        .filter { it <= 1000 }
                         .check { it >= 0 }
+                        .filter { it <= 1000 }
                         .sum()
 
-    private fun hasCustomDelimiter() = input.startsWith("//")
+    private val customDelimiter: Char
+        get() = input[2]
 
-    private fun customDelimiter() = input[2]
-
-    private fun remainingInput() = input.substring(4)
+    private val inputWithoutCustomDelimiter: String
+        get() = input.substringAfter("\n")
 
 }
 
 fun <T> Iterable<T>.check(forException: () -> Exception = ::IllegalArgumentException, check: (T) -> Boolean): Iterable<T> {
-    for (element in iterator()) if (!check(element)) throw forException.invoke()
+    this.filterNot { check.invoke(it) }
+            .forEach { throw forException.invoke() }
     return this
 }

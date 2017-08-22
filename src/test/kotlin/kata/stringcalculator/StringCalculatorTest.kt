@@ -47,35 +47,37 @@ import org.junit.Test
  */
 class StringCalculatorTest {
 
+    private fun sumOf(input: String) = input.sum()
+
     @Test
     fun givenEmptyString_shouldReturnZero() {
-        assertThat("".sum()).isEqualTo(0)
+        assertThat(sumOf("")).isEqualTo(0)
     }
 
     @Test
     fun givenSingleNumber_shouldReturnNumberAsInt() {
-        assertThat("1".sum()).isEqualTo(1)
+        assertThat(sumOf("1")).isEqualTo(1)
     }
 
     @Test
     fun givenTwoCommaSeparatedNumbers_shouldReturnTheirSum() {
-        assertThat("1,2".sum()).isEqualTo(3)
+        assertThat(sumOf("1,2")).isEqualTo(3)
     }
 
     @Test
     fun givenManyCommaSeparatedNumbers_shouldReturnTheirSum() {
-        assertThat("1\n5,3,1".sum()).isEqualTo(10)
+        assertThat(sumOf("1\n5,3,1")).isEqualTo(10)
     }
 
     @Test
     fun givenCustomDelimiter_shouldUseItToSeparateNumbers() {
-        assertThat("//;\n1;2;3".sum()).isEqualTo(6)
+        assertThat(sumOf("//;\n1;2;3")).isEqualTo(6)
     }
 
     @Test
     fun givenNegativeNumber_shouldRaiseException() {
         try {
-            "1,-2,3".sum()
+            sumOf("1,-2,3")
             fail("should raise exception instead of getting here")
         } catch (exception: IllegalArgumentException) {
             // success
@@ -84,7 +86,7 @@ class StringCalculatorTest {
 
     @Test
     fun givenNumbersGreater1000_shouldIgnoreThose() {
-        assertThat("1,1000,2,1001,3".sum()).isEqualTo(1006)
+        assertThat(sumOf("1,1000,2,1001,3")).isEqualTo(1006)
     }
 
 }
