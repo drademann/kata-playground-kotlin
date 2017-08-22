@@ -1,5 +1,7 @@
 package kata.stringcalculator
 
+import kata.check
+
 fun String.sum(): Int =
         if (isEmpty())
             0
@@ -9,14 +11,17 @@ fun String.sum(): Int =
 private class StringCalculator(val input: String, val delimiters: CharArray = charArrayOf(',', '\n')) {
 
     fun sum(): Int =
-            if (input.startsWith("//"))
+            if (hasCustomDelimiter)
                 StringCalculator(inputWithoutCustomDelimiter, delimiters.plus(customDelimiter)).sum()
             else
                 input.split(*delimiters)
-                        .map { it.toInt() }
+                        .map { it.trim().toInt() }
                         .check { it >= 0 }
                         .filter { it <= 1000 }
                         .sum()
+
+    private val hasCustomDelimiter: Boolean
+        get() = input.startsWith("//")
 
     private val customDelimiter: Char
         get() = input[2]
@@ -26,8 +31,3 @@ private class StringCalculator(val input: String, val delimiters: CharArray = ch
 
 }
 
-fun <T> Iterable<T>.check(forException: () -> Exception = ::IllegalArgumentException, check: (T) -> Boolean): Iterable<T> {
-    this.filterNot { check.invoke(it) }
-            .forEach { throw forException.invoke() }
-    return this
-}
