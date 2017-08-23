@@ -31,23 +31,25 @@ import org.junit.Test
  * 7. Providing numbers bigger than 1000 when calculating
  *    then such numbers should be ignored in the calculation.
  *
+ * 8. Providing null
+ *    then the result is -1
+ *
+ * 9. Calculating method should be part of the String API.
+ *
  * ## Additional Requirements
  *
- * Use the following advanced requirements if you finish the previous steps
- * in less than 30 minutes.
+ * Use the following advanced requirements if you finish the previous steps lightning fast:
  *
- * 8. Providing delimiters of any length (```//[delimiter]\n```) when calculating
+ * a. Providing delimiters of any length (```//[delimiter]\n```) when calculating
  *    then the result is the sum of the numbers. (e.g. ```//[xx]\n1xx2xx3``` should return 6)
  *
- * 9. Providing multiple delimiters (```//[delim1][delim2]\n```) when calculating
+ * b. Providing multiple delimiters (```//[delim1][delim2]\n```) when calculating
  *    then the result is the sum of the numbers. (e.g. ```//[x][y]\n1x2y3``` should return 6)
  *
- * 10. Providing multiple delimiters with variable length when calculating
+ * c. Providing multiple delimiters with variable length when calculating
  *     then the result is the sum of the numbers.
  */
 class StringCalculatorTest {
-
-    private fun sumOf(input: String) = input.sum()
 
     @Test
     fun givenEmptyString_shouldReturnZero() {
@@ -87,6 +89,16 @@ class StringCalculatorTest {
     @Test
     fun givenNumbersGreater1000_shouldIgnoreThose() {
         assertThat(sumOf("1,1000,2,1001,3")).isEqualTo(1006)
+    }
+
+    @Test
+    fun givenNull_shouldReturnMinusOne() {
+        assertThat(sumOf(null)).isEqualTo(-1)
+    }
+
+    @Test
+    fun givenString_shouldAllowCalculatingItsSum() {
+        assertThat("1,2,3".sum()).isEqualTo(6)
     }
 
 }
