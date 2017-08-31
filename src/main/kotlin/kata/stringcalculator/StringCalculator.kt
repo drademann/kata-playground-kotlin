@@ -2,7 +2,7 @@ package kata.stringcalculator
 
 import kata.check
 
-fun String.sum() = sumOf(this)
+fun String?.sum(): Int = if (this == null) -1 else sumOf(this)
 
 fun sumOf(input: String?) = when {
     input == null -> -1
@@ -10,9 +10,8 @@ fun sumOf(input: String?) = when {
     else -> StringCalculator(input).sum()
 }
 
-private class StringCalculator(
-        val input: String,
-        val delimiters: CharArray = charArrayOf(',', '\n')) {
+private class StringCalculator(private val input: String,
+                               private val delimiters: CharArray = charArrayOf(',', '\n')) {
 
     fun sum(): Int =
             if (hasCustomDelimiter())
@@ -20,16 +19,16 @@ private class StringCalculator(
             else
                 input.split(*delimiters)
                         .map { it.toInt() }
-                        .filter { it <= 1000 }
                         .check { it >= 0 }
+                        .filter { it <= 1000 }
                         .sum()
 
     private fun hasCustomDelimiter() = input.startsWith("//")
 
-    private val inputWithoutCustomDelimiter: String
-        get() = input.substringAfter("\n")
+    private inline val inputWithoutCustomDelimiter
+        get() = input.substringAfter('\n')
 
-    private val customDelimiter: Char
+    private inline val customDelimiter
         get() = input[2]
 
 }

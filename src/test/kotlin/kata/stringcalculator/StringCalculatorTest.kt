@@ -34,7 +34,7 @@ import org.junit.Test
  * 8. Providing null
  *    then the result is -1
  *
- * 9. Calculating method should be part of the String API.
+ * 9. Calculating method should be part of the String API, even for ```null``` Strings.
  *
  * ## Additional Requirements
  *
@@ -92,13 +92,14 @@ class StringCalculatorTest {
     }
 
     @Test
-    fun givenNull_shouldReturnMinusOne() {
-        assertThat(sumOf(null)).isEqualTo(-1)
+    fun givenString_shouldAllowCalculatingItsSum() {
+        assertThat("1,2,3".sum()).isEqualTo(6)
     }
 
     @Test
-    fun givenString_shouldAllowCalculatingItsSum() {
-        assertThat("1,2,3".sum()).isEqualTo(6)
+    fun givenNull_shouldReturnMinusOne() {
+        assertThat(sumOf(null)).isEqualTo(-1)
+        assertThat(null.sum()).isEqualTo(-1)
     }
 
 }
