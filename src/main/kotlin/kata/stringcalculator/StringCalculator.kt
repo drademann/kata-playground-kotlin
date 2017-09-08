@@ -2,7 +2,7 @@ package kata.stringcalculator
 
 import kata.check
 
-fun String?.sum(): Int = if (this == null) -1 else sumOf(this)
+fun String?.sum(): Int = sumOf(this)
 
 fun sumOf(input: String?) = when {
     input == null -> -1
