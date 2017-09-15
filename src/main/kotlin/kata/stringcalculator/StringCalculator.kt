@@ -15,7 +15,7 @@ private class StringCalculator(private val input: String,
 
     fun sum(): Int =
             if (hasCustomDelimiter())
-                StringCalculator(inputWithoutCustomDelimiter, delimiters.plus(customDelimiter)).sum()
+                StringCalculator(inputWithoutCustomDelimiter, delimiters + customDelimiter).sum()
             else
                 input.split(*delimiters).asSequence()
                         .map { it.toInt() }
@@ -25,10 +25,7 @@ private class StringCalculator(private val input: String,
 
     private fun hasCustomDelimiter() = input.startsWith("//")
 
-    private inline val inputWithoutCustomDelimiter
-        get() = input.substringAfter('\n')
-
-    private inline val customDelimiter
-        get() = input[2]
+    private val inputWithoutCustomDelimiter get() = input.substringAfter('\n')
+    private val customDelimiter get() = input[2]
 
 }
