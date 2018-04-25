@@ -1,15 +1,12 @@
 package kata.primefactors
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
-
 /**
  * # Requirements
  *
  * * For an integer value n the generator should return all prime factors as an ordered list.
  */
 class PrimeFactorsTest {
-
+/*
     @Test
     fun one() {
         assertThat(primeFactorsOf(1)).isEmpty()
@@ -49,5 +46,5 @@ class PrimeFactorsTest {
     fun nine() {
         assertThat(primeFactorsOf(9)).containsExactly(3, 3)
     }
-
+*/
 }
