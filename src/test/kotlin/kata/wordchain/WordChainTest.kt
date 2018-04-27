@@ -1,7 +1,9 @@
 package kata.wordchain
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+import io.kotlintest.be
+import io.kotlintest.matchers.beEmpty
+import io.kotlintest.should
+import io.kotlintest.specs.StringSpec
 
 /**
  * # Requirements
@@ -16,49 +18,27 @@ import org.junit.Test
  *
  * _ps._ findChain a long list of words in ```src/test/resources```
  */
-class WordChainTest {
-
-    @Test
-    fun givenEmptyStrings_shouldReturnEmptyArrayOfStrings() {
-        val chain = Words("a", "b", "c").findChain(from = "", to = "")
-
-        assertThat(chain).isEmpty()
+class WordChainTest : StringSpec() {
+    init {
+        "given empty strings should result in empty chain" {
+            chain(Words("a", "b", "c"), from = "", to = "") should beEmpty()
+        }
+        "given from and to words with different length should result in empty chain" {
+            chain(Words("a", "b", "c"), from = "a", to = "bb") should beEmpty()
+        }
+        "given simple connection should result in array with from/to" {
+            chain(Words("a", "b", "c"), from = "a", to = "c") should be(listOf("a", "c"))
+        }
+        "given no connection exists should result in empty chain" {
+            chain(Words("a", "b", "c"), from = "a", to = "x") should beEmpty()
+        }
+        "given vocabulary with different sized words should result in valid chain" {
+            chain(Words("a", "aa", "aaa", "aba", "ba", "ccc", "cc", "ac"), from = "aa", to = "cc") should be(listOf("aa", "ac", "cc"))
+        }
+        "given multiple possible chains should result in shortest one" {
+            chain(Words("aa", "ab", "ac", "bb", "bc", "cc"), from = "aa", to = "bb") should be(listOf("aa", "ab", "bb"))
+        }
     }
 
-    @Test
-    fun givenFromToWithDifferentLength_shouldReturnEmptyArray() {
-        val chain = Words("a", "b", "c").findChain(from = "a", to = "bb")
-
-        assertThat(chain).isEmpty()
-    }
-
-    @Test
-    fun givenSimpleConnection_shouldReturnArrayWithFromTo() {
-        val chain = Words("a", "b", "c").findChain(from = "a", to = "c")
-
-        assertThat(chain).containsExactly("a", "c")
-    }
-
-    @Test
-    fun givenNoConnectionExists_shouldReturnEmptyArray() {
-        val chain = Words("a", "b", "c").findChain(from = "a", to = "x")
-
-        assertThat(chain).isEmpty()
-    }
-
-    @Test
-    fun givenVocabularyWithDifferentSizeWords_shouldReturnChain() {
-        val chain = Words("a", "aa", "aaa", "aba", "ba", "ccc", "cc", "ac").findChain("aa", "cc")
-
-        assertThat(chain).containsExactly("aa", "ac", "cc")
-    }
-
-    @Test
-    fun givenMultiplePossibleChains_shouldReturnShortestRoute() {
-        val chain = Words("aa", "ab", "ac", "bb", "bc", "cc").findChain("aa", "bb")
-
-        assertThat(chain).containsExactly("aa", "ab", "bb")
-    }
-
+    private fun chain(vocabulary: Words, from: String, to: String): List<String> = vocabulary.findChain(from, to).asList()
 }
-
