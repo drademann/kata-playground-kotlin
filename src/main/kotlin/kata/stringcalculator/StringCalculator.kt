@@ -15,7 +15,7 @@ class StringCalculator(private val input: String,
                        private val delimiters: CharArray = charArrayOf(',', '\n')) {
 
     fun sum(): Int =
-            if (input.startsWith("//"))
+            if (hasCustomDelimiters())
                 StringCalculator(inputWithoutCustomDelimiter,
                                  customDelimiters).sum()
             else
@@ -24,6 +24,8 @@ class StringCalculator(private val input: String,
                         .check { it >= 0 }
                         .filter { it <= 1000 }
                         .sum()
+
+    private fun hasCustomDelimiters() = input.startsWith("//")
 
     private val inputWithoutCustomDelimiter = input.substringAfter('\n')
 
