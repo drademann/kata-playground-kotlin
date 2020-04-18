@@ -1,9 +1,9 @@
 package kata.wordchain
 
-import io.kotlintest.be
-import io.kotlintest.matchers.beEmpty
-import io.kotlintest.should
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.be
+import io.kotest.matchers.collections.beEmpty
+import io.kotest.matchers.should
 
 /**
  * # Requirements
@@ -33,12 +33,17 @@ class WordChainTest : StringSpec() {
             chain(Words("a", "b", "c"), from = "a", to = "x") should beEmpty()
         }
         "given vocabulary with different sized words should result in valid chain" {
-            chain(Words("a", "aa", "aaa", "aba", "ba", "ccc", "cc", "ac"), from = "aa", to = "cc") should be(listOf("aa", "ac", "cc"))
+            chain(
+                Words("a", "aa", "aaa", "aba", "ba", "ccc", "cc", "ac"),
+                from = "aa",
+                to = "cc"
+            ) should be(listOf("aa", "ac", "cc"))
         }
         "given multiple possible chains should result in shortest one" {
             chain(Words("aa", "ab", "ac", "bb", "bc", "cc"), from = "aa", to = "bb") should be(listOf("aa", "ab", "bb"))
         }
     }
 
-    private fun chain(vocabulary: Words, from: String, to: String): List<String> = vocabulary.findChain(from, to).asList()
+    private fun chain(vocabulary: Words, from: String, to: String): List<String> =
+        vocabulary.findChain(from, to).asList()
 }

@@ -1,9 +1,9 @@
 package kata.primefactors
 
-import io.kotlintest.be
-import io.kotlintest.matchers.beEmpty
-import io.kotlintest.should
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.be
+import io.kotest.matchers.collections.beEmpty
+import io.kotest.matchers.should
 
 class PrimeFactorsTest : StringSpec() {
     init {
