@@ -1,1 +1,1 @@
-rootProject.name = "Kata Playground Kotlin"
+rootProject.name = "kata-playground-kotlin"
