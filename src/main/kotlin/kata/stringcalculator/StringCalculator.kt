@@ -7,7 +7,7 @@ fun String?.sum() = sumOf(this)
 fun sumOf(input: String?): Int =
         when {
             input == null -> -1
-            input.isEmpty() -> 0
+            input.isBlank() -> 0
             else -> StringCalculator(input).sum()
         }
 

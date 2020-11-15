@@ -11,7 +11,7 @@ class Words(private vararg val vocabulary: String) {
                 search(Chain(from), to)
 
     private fun unableToChain(from: String, to: String) =
-            from.isEmpty() || to.isEmpty()
+            from.isBlank() || to.isBlank()
                     || differentLength(from, to)
                     || unknown(from) || unknown(to)
 
@@ -21,7 +21,7 @@ class Words(private vararg val vocabulary: String) {
     private fun search(chain: Chain, to: String) =
             nextChains(chain, to)
                     .filter { it.isNotEmpty() }
-                    .minBy { it.length } ?: NoChain
+                    .minByOrNull { it.length } ?: NoChain
 
     private fun nextChains(chain: Chain, to: String): Sequence<Chain> =
             nextCandidates(chain, to)
